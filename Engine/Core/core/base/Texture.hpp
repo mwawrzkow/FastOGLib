@@ -9,7 +9,9 @@ namespace AEG
     class Textures; 
     class Texture
     {
+        private:
         unsigned int ID; 
+        std::string location; 
         protected: 
         const std::string & getLocation(); 
         void setTextureLocation(std::string); 
@@ -19,8 +21,6 @@ namespace AEG
         Texture(std::string, unsigned int);
         const unsigned int& getTextureID(); 
         friend class Textures; 
-        private:
-        std::string location; 
     };
     class Textures
     {

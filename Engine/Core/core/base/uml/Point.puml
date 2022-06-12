@@ -1,0 +1,33 @@
+@startuml
+!startsub Basic_types
+enum ColorType {
+    RED
+    GREEN
+    BLUE 
+    ALPHA
+    ERROR
+}
+
+class Point2D<T>
+{
+    +T x;
+    +T y;
+}
+
+class Color<T>{ 
+    +T red;
+    +T green;
+    +T blue;
+    +operator[](ColorType) -> T&;
+}
+
+class ColorRGBA<T>{
+    +Color<T> color;
+    +T alpha;
+    +operator[](ColorType ) -> T&;
+}
+
+ColorRGBA "1" *--  Color
+Color <- ColorType
+!endsub
+@enduml

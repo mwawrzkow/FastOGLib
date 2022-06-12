@@ -2,28 +2,21 @@
 #define SQUARE_HPP
 #include "../base/Primitive.hpp"
 #include "../WindowProperties.hpp"
-
+#include "../base/Point.hpp"
+#include "Rectanagle.hpp"
+#include <memory>
+#include <array>
 namespace Primitives
 {
-    class Square : private Primitive
+    class Square : public Rectanagle
     {
     private:
-        Global::WindowProperties *window;
-        float x, y , size; 
-        void calculateMatrixes(); 
-        float alpha = 1.0f;
+    float size = 0; 
     public:
-        Square(float, float, float, float);
-        void setPosition(float,float);
-        void Move(float, float); 
-        void setTexture(std::string); 
-        bool isVisible() override; 
-        void Display();
-        float getX();
-        float getY();
-        void setAlpha(float);
-        bool isNear(float, float, float) override;
-        ~Square();
+        Square(float, float, float, float = 1.0f);
+        Square(const Square &s);
+        Square &operator=(const Square &s);
+        virtual ~Square();
     };
 
 }

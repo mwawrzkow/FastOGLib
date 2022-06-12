@@ -8,8 +8,10 @@
 #include <chrono>
 #include <thread>
 #include "../WindowProperties.hpp"
-vertexHandler::vertexHandler(/* args */)
+VertexHandler::VertexHandler(bool isDefaultPrimitive)
 {
+    if(!isDefaultPrimitive)
+        return;
     Global::WindowProperties* WP = &Global::WindowProperties::getInstance(); 
     GPU::ArrayHandler* AH = WP->getAH(); 
     if (!AH->areFreeBuffers())
@@ -22,15 +24,30 @@ vertexHandler::vertexHandler(/* args */)
     printf("VAO: %i,  VBO: %i, EBO: %i \n", VAO, VBO, EBO);
     #endif
 }
+VertexHandler::VertexHandler(const VertexHandler &other)
+{
+    this->VAO = other.VAO;
+    this->VBO = other.VBO;
+    this->EBO = other.EBO;
+    this->texture = other.texture;
+}
+VertexHandler &VertexHandler::operator=(const VertexHandler &other)
+{
+    this->VAO = other.VAO;
+    this->VBO = other.VBO;
+    this->EBO = other.EBO;
+    this->texture = other.texture;
+    return *this;
+}
 
-vertexHandler::~vertexHandler()
+VertexHandler::~VertexHandler()
 {
     // glDeleteVertexArrays(1, &VAO);
     // glDeleteBuffers(1, &VBO);
     // glDeleteBuffers(1,&EBO);
 }
 
-void vertexHandler::setVertexHandler(float vertices[], int VerticesSize, unsigned int indices[], int indicesSize)
+void VertexHandler::setVertexHandler(float vertices[], int VerticesSize, unsigned int indices[], int indicesSize)
 {
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -47,25 +64,25 @@ void vertexHandler::setVertexHandler(float vertices[], int VerticesSize, unsigne
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(7 * sizeof(float)));
     glEnableVertexAttribArray(2);
 }
-void vertexHandler::setTextureData(const std::string data)
+void VertexHandler::setTextureData(const std::string data)
 {
     AEG::Textures* TextureHandler = Global::WindowProperties::getInstance().getTextures(); 
     TextureHandler->loadTexture(data); 
     this->texture = TextureHandler->getTextureIndex(data); 
 }
-int vertexHandler::getTexture()
+int VertexHandler::getTexture()
 {
     return texture;
 }
-int vertexHandler::getVBO()
+int VertexHandler::getVBO()
 {
     return VBO;
 }
-int vertexHandler::getEBO()
+int VertexHandler::getEBO()
 {
     return EBO;
 }
-int vertexHandler::getVAO()
+int VertexHandler::getVAO()
 {
     return VAO;
 }

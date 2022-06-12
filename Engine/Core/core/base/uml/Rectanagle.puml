@@ -1,0 +1,66 @@
+@startuml
+!include Primitive.puml
+
+set namespaceSeparator ::
+
+class Primitives::vertices_array{
+
+    std::array<PointF,4>
+}
+class PointF {
+    float x;
+    float y;
+}
+class Primitives::colors_array{
+    std::array<ColorRGBAF,4>
+}
+
+Primitives::colors_array "<<typedef>>" <-- ColorRGBAF
+ColorRGBAF "<<typedef>>" <- ColorRGBA
+Primitives::Rectanagle "<<typedef>>" o- Primitives::colors_array
+Primitives::vertices_array "<<typedef>>"<-- PointF
+PointF "<<typedef>>" <-- Point2D
+Primitives::Rectanagle "<<typedef>>" o-- Primitives::vertices_array
+Primitive <|- Primitives::Rectanagle
+Primitives::Rectanagle <-- ColorType
+class Primitives::Rectanagle{
+    #Global::WindowProperties* window; 
+    #float x; 
+    #float y;
+    #float width;
+    #float height;
+    #Primitives::colors_array colors;
+    #Primitives::vertices_array vertices;
+    #float angle; 
+    #unsigned int inc[];
+    #void calculateMatrixes(); 
+    #vertices_array rotateVertices();
+    #voide calculateVerticesArr(); 
+    +Rectanagle(float x, float y, float width, float height, float alpha = 1.0f);
+    +Rectanagle(const Primitives::Rectanagle& other);
+    +Rectanagle &operator=(const Primitives::Rectanagle& other);
+    +{abstract}~Rectanagle();
+    +void setWidth(float width);
+    +void setHeight(float height);
+    +void setPosition(float x, float y);
+    +void Move(float x, float y);
+    +void setTexture(std::string texture);
+    +bool isVisible();
+    +void Display(); 
+    +float getX();
+    +float getY();
+    +void setAlpha(float alpha);
+    +bool isNear(float,float,float); 
+    +void setRotation(float angle);
+    +float getRotation();
+    +void rotate(float angle);
+    +void setR(float r);
+    +void setG(float g);
+    +void setB(float b);
+    +void setColor(float r, float g, float b, float a = 1.0f);
+    +void SetVerticeColor(int idx, float v, ColorType = ERROR); 
+
+}
+
+
+@enduml

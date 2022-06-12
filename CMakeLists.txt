@@ -1,16 +1,15 @@
 cmake_minimum_required(VERSION 3.7.2)
 project(RPG_ENGINE)
+include(ExternalProject)
 set(A_Engine_debug TRUE)
-#set(CMAKE_CXX_STANDARD 17)
-# if(WIN32)
-# add_subdirectory(glfw)
-# add_subdirectory(glew)
-# else()
-# add_subdirectory(glfw)
-# add_subdirectory( ${PROJECT_SOURCE_DIR}/glew/build/cmake )
-# endif()
-#add_subdirectory(glm)
 add_subdirectory(Engine)
-# find_package(GLEW 2.0 REQUIRED)
 
+set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
 
+# ExternalProject_Add(Logger 
+#     GIT_REPOSITORY https://github.com/mwawrzkow/LoggerCpp
+#     GIT_TAG main
+# )
+
+# include_directories(${EXTERNAL_INSTALL_LOCATION}/include)
+# link_directories(${EXTERNAL_INSTALL_LOCATION}/lib)

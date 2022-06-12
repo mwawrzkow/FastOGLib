@@ -58,11 +58,11 @@ namespace GPU
     bool ArrayHandler::alocateBuffer(int size)
     {
         unsigned int VAO[size], VBO[size], EBO[size];
-        std::cout << "Allocating the buffer" << std::endl;
+        // std::cout << "Allocating the buffer" << std::endl;
         glGenVertexArrays(size, VAO);
         glGenBuffers(size, VBO);
         glGenBuffers(size, EBO);
-        std::cout << "Ended alocating the buffer" << std::endl;
+        // std::cout << "Ended alocating the buffer" << std::endl;
         if (areRepetitions(VAO, size) || areRepetitions(VBO, size || areRepetitions(EBO, size)))
             return false;
         for (int i = 0; i < size; i++)
@@ -74,16 +74,16 @@ namespace GPU
     }
     bool ArrayHandler::areFreeBuffers()
     {
-        for (int i = 0; i < this->GPUSpace.size(); i++)
+        for (size_t i = 0; i < this->GPUSpace.size(); i++)
         {
-            if (this->GPUSpace[i].Taken())
+            if (!this->GPUSpace[i].Taken())
                 return true;
         }
         return false;
     }
     GPU_Ref *ArrayHandler::getFirstAvailavleBuffer()
     {
-        for (int i = 0; i < GPUSpace.size(); i++)
+        for (size_t i = 0; i < GPUSpace.size(); i++)
         {
             if (!GPUSpace[i].Taken())
                 return GPUSpace[i].Take();

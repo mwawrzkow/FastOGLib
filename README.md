@@ -32,5 +32,8 @@ mingw32-make.exe -j 10 -l 10
 ## Developing the application
 Actually in order of developement on this library the [main.cpp](Engine/Core/core/main.cpp) file has to be modified. In future months I'll be adding more functionality, which can me monitored in issues, and after some time, I'll provide  CMake style libraries. 
 
+# Further information
+Further information can be found in the .readme.md/README.md file. [Futher information](.readme.md/README.md)
+
 # Contributors 
 @mwawrzkow - Marcin Wawrzków - owner 

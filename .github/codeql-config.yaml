@@ -1,0 +1,4 @@
+paths-ignore:
+  - Engine/Core/glfw
+  - Engine/Core/glew
+  - Engine/Core/core/base/stb

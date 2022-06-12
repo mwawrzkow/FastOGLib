@@ -6,7 +6,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-class vertexHandler
+#include "Renderable.hpp"
+class VertexHandler : public Renderable
 {
 private:
     /* data */
@@ -14,14 +15,16 @@ private:
     unsigned int texture;
 
 public:
-    void setVertexHandler(float vertices[], int VerticesSize, unsigned int indices[], int indicesSize);
+    VertexHandler(bool isDefaultPrimitive);
+    VertexHandler(const VertexHandler &other);
+    VertexHandler &operator=(const VertexHandler &other);
+    ~VertexHandler();
+    void setVertexHandler(float vertices[], int VerticesSize, unsigned int indices[], int indicesSize) override;
     void setTextureData(const std::string);
-    int getTexture(); 
-    int getVBO(); 
-    int getEBO(); 
-    int getVAO(); 
-    vertexHandler(/* args */);
-    ~vertexHandler();
+    int getTexture();
+    int getVBO();
+    int getEBO();
+    int getVAO();
 };
 
 #endif

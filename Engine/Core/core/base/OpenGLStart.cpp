@@ -5,8 +5,8 @@ namespace OpenGLInstance
 {
     GLFWwindow *InitWindow(int width, int height, std::string name)
     {
-        assert(("Width Value must be at least 1280", width >= 1280));
-        assert(("Height Value must be at least 720", height >= 720));
+        assert(width >= 1280 && "Width Value must be at least 1280");
+        assert(height >= 720 && "Height Value must be at least 720");
         glewExperimental = GL_TRUE;
         std::cout << "RPG engine!\nLet's start this shit!" << std::endl;
         if (!glfwInit())
@@ -39,16 +39,16 @@ namespace OpenGLInstance
     }
     void setClearColor(float R, float G, float B, float A)
     {
-        assert(("Red value has to be between 0 and 1", R <= 1.0f && R >= 0.0f));
-        assert(("Blue value has to be between 0 and 1", B <= 1.0f && B >= 0.0f));
-        assert(("Green value has to be between 0 and 1", G <= 1.0f && G >= 0.0f));
-        assert(("Alpha value has to be between 0 and 1", A <= 1.0f && A >= 0.0f));
+        assert(R <= 1.0f && R >= 0.0f && "Red value has to be between 0 and 1");
+        assert(B <= 1.0f && B >= 0.0f && "Blue value has to be between 0 and 1");
+        assert(G <= 1.0f && G >= 0.0f && "Green value has to be between 0 and 1");
+        assert(A <= 1.0f && A >= 0.0f && "Alpha value has to be between 0 and 1");
         glClearColor(R, G, B, A);
     }
     std::vector<GLuint> CreateAndCompileShaders(const char *vertShaderCode, const char *fragShaderCode)
     {
-        assert(("vertShaderCode has to have value", vertShaderCode != nullptr));
-        assert(("fragShaderCode has to have value", fragShaderCode != nullptr));
+        assert(vertShaderCode != nullptr && "vertShaderCode has to have value");
+        assert(fragShaderCode != nullptr && "fragShaderCode has to have value");
         std::vector<GLuint> result;
         GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertShader, 1, &vertShaderCode, nullptr);

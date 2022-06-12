@@ -1,0 +1,115 @@
+@startuml
+!includesub Point.puml!Basic_types
+set namespaceSeparator ::
+
+class Global::WindowProperties{ 
+    -WindowProperties(); 
+    --
+    -int windowHeight;
+    -int windowWidth;
+    +{abstract}WindowProperties(WindowProperties&);
+    +{abstract}operator[](WindowProperties&); 
+    +{static}WindowProperties getInstance();
+    +GPU::ArrayHandler* getAH(); 
+    +AEG::Textures* getTextures(); 
+    +~WindowProperties();
+    +void setWindowHeight(int);
+    +void setWindowWidth(int);
+    +const int getWindowHeight();
+    +const int getWindowWidth();
+}
+Global::WindowProperties "1" *-- GPU::ArrayHandler
+Global::WindowProperties -right-> VertexHandler
+Global::WindowProperties "1" *- AEG::Textures
+
+class AEG::Textures{ 
+    -std::vector<Texture> TextureMap; 
+    -void LoadTexture(int,const std::string&); 
+    +Textures(); 
+    +~Textures();
+    +void alocateTextureSpace(unsigned int); 
+    +const unsigned int &getTextureIndex(const std::string&);
+    +void LoadTexture(const std::string&); 
+    +void unloadTexture(const std::string&);
+    +void unloadTexture(unsigned int);
+}
+AEG::Textures "1..n" *-- "<<friend>>" AEG::Texture
+class AEG::Texture{ 
+    -unsigned int ID; 
+    -std::string location; 
+    #const std::string &getLocation(); 
+    #void setTextureLocation(const std::string&);
+    #void setTextureID(unsigned int);
+    #void Clear(); 
+    +Texture(std::string, unsigned int);
+    +const unsigned int &getTextureID();
+}
+
+class GPU::GPU_Ref{ 
+    -unsigned int VAO;
+    -unsigned int VBO;
+    -unsigned int EBO;
+    -bool taken; 
+    #void Release(); 
+    #bool &Taken(); 
+    #GPU_Ref* Take(); 
+    +GPU_Ref(unsigned int VAO, unsigned int VBO, unsigned int EBO);
+    +const unsigned int &GetVAO();
+    +const unsigned int &GetVBO();
+    +const unsigned int &GetEBO();
+}
+
+class GPU::ArrayHandler{ 
+    -std::vector<GPU_Ref> GPUSpace; 
+    -bool areRepetitions(unsigned int[], int); 
+    +ArrayHandler();
+    +bool areFreeBuffers();
+    +bool alocateBuffer(int);
+    +GPU_Ref* getFirstAvailaveBuffer();
+    +void releaseBuffer(int); 
+    +~ArrayHandler();
+}
+
+GPU::ArrayHandler "1..n" *-- "<<Friend>>"GPU::GPU_Ref
+
+class VertexHandler{
+
+    -unsigned int VBO;
+    -unsigned int VAO;
+    -unsigned int EBO;
+    -unsigned int texture;
+    +VertexHandler(bool);
+    +VectexHandler(const VertexHandler&);
+    +operator[](const VertexHandler&);
+    +~VertexHandler();
+    +void setVertexHandler(float[], int,unsigned int[], int);
+    +void setTexture(unsigned int);
+    +int getTexture(); 
+    +int getVBO();
+    +int getVAO();
+    +int getEBO();
+}
+
+VertexHandler <|-- Primitive
+
+enum PrimType{ 
+    RECTANAGLE
+    TRIANGLE
+    SQUARE
+    LINE
+    
+}
+PrimType -right-o Primitive
+class Primitive{ 
+  #PrimType TYPE;
+  +Primitive(PrimType);
+  +Primitive(const PrimType&);
+  +operator[](const PrimType&);
+  +~Primitive();
+  +float sin(float r); 
+  +float cos(float r);
+  +{abstract}void Display(); 
+  +{abstract}bool isVisable();
+  +{abstract}bool isNear(float,float,float); 
+  }
+@enduml
